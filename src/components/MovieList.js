@@ -1,6 +1,7 @@
 import React from "react";
 
 import MovieCard from "./MovieCard.js";
+import MovieForm from "./MovieForm.js";
 
 
 class MovieList extends React.Component {
@@ -51,11 +52,20 @@ class MovieList extends React.Component {
     });
   }
 
+  addNewMovie(movie) {
+    const { movies } = this.state;
+    movies.unshift(movie);
+    this.setState({ movies });
+  }
+
   render() {
     const { movies, oscarsOnly } = this.state;
     return (
       <section>
         <h2>Movie List</h2>
+
+        <MovieForm onMovieSubmit={(newMovie) => this.addNewMovie(newMovie)} />
+
         <button onClick={() => this.toggleOscarsOnly()}>
           Show {oscarsOnly ? "All Films" : "Oscar Winners Only"}
         </button>
